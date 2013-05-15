@@ -67,7 +67,8 @@ namespace :deploy do
   # after "deploy:finalize_update", "deploy:symlink_config"
 
   task :temp_debug, roles: :app do
-    run "ls ~/apps/solar_geometry_api/releases/"
+    release_directory_content = `ls ~/apps/solar_geometry_api/releases/`
+    puts "release_directory_content: #{release_directory_content}"
   end
   after "deploy:update_code", "deploy:temp_debug"
   after "bundle:install", "deploy:temp_debug"
