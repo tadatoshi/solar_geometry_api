@@ -1,4 +1,4 @@
-# require "bundler/capistrano"
+require "bundler/capistrano"
 require 'puma/capistrano'
 
 task :staging do
@@ -65,6 +65,13 @@ namespace :deploy do
   #   run "ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
   # end
   # after "deploy:finalize_update", "deploy:symlink_config"
+
+  task :temp_debug, roles: :app do
+    run "ls ~/apps/solar_geometry_api/releases/"
+  end
+  after "deploy:update_code", "deploy:temp_debug"
+  after "bundle:install", "deploy:temp_debug"
+  before "deploy:finalize_update", "deploy:temp_debug"
 
   desc "Make sure local git is in sync with remote."
   task :check_revision, roles: :web do
