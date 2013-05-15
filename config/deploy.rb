@@ -66,14 +66,6 @@ namespace :deploy do
   # end
   # after "deploy:finalize_update", "deploy:symlink_config"
 
-  task :temp_debug, roles: :app do
-    release_directory_content = `ls ~/apps/solar_geometry_api/releases/`
-    puts "release_directory_content: #{release_directory_content}"
-  end
-  after "deploy:update_code", "deploy:temp_debug"
-  after "bundle:install", "deploy:temp_debug"
-  before "deploy:finalize_update", "deploy:temp_debug"
-
   desc "Make sure local git is in sync with remote."
   task :check_revision, roles: :web do
     unless `git rev-parse HEAD` == `git rev-parse origin/master`
