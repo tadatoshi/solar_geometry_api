@@ -16,9 +16,11 @@ gem 'sqlite3'
 
 # Use unicorn as the app server
 # gem 'unicorn'
+gem 'puma'
 
 # Deploy with Capistrano
 # gem 'capistrano', :group => :development
+gem 'capistrano'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
