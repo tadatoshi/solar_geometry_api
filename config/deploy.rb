@@ -1,4 +1,4 @@
-require "bundler/capistrano"
+# require "bundler/capistrano"
 require 'puma/capistrano'
 
 task :staging do
@@ -65,12 +65,6 @@ namespace :deploy do
   #   run "ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
   # end
   # after "deploy:finalize_update", "deploy:symlink_config"
-
-  task :cd_to_home, roles: :app do
-    puts "cd to home."
-    run "cd ~"
-  end
-  after "bundle:install", "deploy:cd_to_home"
 
   desc "Make sure local git is in sync with remote."
   task :check_revision, roles: :web do
