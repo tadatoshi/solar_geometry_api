@@ -17,7 +17,7 @@ describe SolarPosition do
     
     it "should have address only when latitude is blank" do
 
-      pending
+      pending "In the simple implementation of this API, address is not an input value. Evaluate the possibility of differentiate the set of input parameters."
       
       solar_position_1 = SolarPosition.new(:address => nil, :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       solar_position_1.valid?.should be_false
@@ -293,11 +293,11 @@ describe SolarPosition do
   context "latitude" do
     
     it "should get latitude" do
-
-      pending
       
       solar_position_1 = SolarPosition.new(:latitude => "45.5", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       solar_position_1.send(:latitude).should == "45.5"
+
+      pending "In the simple implementation of this API, address is not an input value. Evaluate the possibility of differentiate the set of input parameters."
       
       solar_position_2 = SolarPosition.new(:address => "Montreal QC Canada", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       solar_position_2.send(:latitude).should == 45.51      
@@ -309,11 +309,11 @@ describe SolarPosition do
   context "meridian" do
     
     it "should get meridian" do
-
-      pending
       
       solar_position_1 = SolarPosition.new(:meridian => "-75", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       solar_position_1.send(:meridian).should == "-75"
+
+      pending "In the simple implementation of this API, address is not an input value. Evaluate the possibility of differentiate the set of input parameters."
       
       solar_position_2 = SolarPosition.new(:address => "Montreal QC Canada", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       solar_position_2.send(:meridian).should == -75      
@@ -325,11 +325,11 @@ describe SolarPosition do
   context "longitude" do
     
     it "should get longitude" do
-
-      pending
       
       solar_position_1 = SolarPosition.new(:longitude => "-73.75", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       solar_position_1.send(:longitude).should == "-73.75"
+
+      pending "In the simple implementation of this API, address is not an input value. Evaluate the possibility of differentiate the set of input parameters."
       
       solar_position_2 = SolarPosition.new(:address => "Montreal International Airport", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       solar_position_2.send(:longitude).should == -73.75     
@@ -341,11 +341,11 @@ describe SolarPosition do
   context "timezone" do
     
     it "should get timezone_identifier" do
-
-      pending
       
       solar_position_1 = SolarPosition.new(:timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       solar_position_1.send(:timezone_identifier).should == "America/Montreal"
+
+      pending "In the simple implementation of this API, address is not an input value. Evaluate the possibility of differentiate the set of input parameters."
       
       solar_position_2 = SolarPosition.new(:address => "Montreal International Airport", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       solar_position_2.send(:timezone_identifier).should == "America/Montreal"   
@@ -407,7 +407,8 @@ describe SolarPosition do
 
     it "should calculate hour angle by getting average solar time by address through geocoding" do
      
-      pending
+      pending "In the simple implementation of this API, address is not an input value. Evaluate the possibility of differentiate the set of input parameters."
+
       solar_position_1 = SolarPosition.new(:address => "Montreal International Airport", :year => 2010, :month => 9, :day => 21, :hour => 10, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       solar_position_1.hour_angle.should be_within(0.1).of(-42.03)
       
@@ -438,7 +439,8 @@ describe SolarPosition do
     
     it "should calculate solar elevation by getting latitude by address through geocoding" do
       
-      pending
+      pending "In the simple implementation of this API, address is not an input value. Evaluate the possibility of differentiate the set of input parameters."
+
       solar_position_1 = SolarPosition.new(:address => "Montreal International Airport", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       solar_position_1.solar_elevation.should == 43.13
       
@@ -469,7 +471,8 @@ describe SolarPosition do
     
     it "should calculate solar azimuth by getting latitude by address through geocoding" do
       
-      pending
+      pending "In the simple implementation of this API, address is not an input value. Evaluate the possibility of differentiate the set of input parameters."
+
       solar_position_1 = SolarPosition.new(:address => "Montreal International Airport", :year => 2010, :month => 9, :day => 21, :hour => 10, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       solar_position_1.solar_azimuth.should be_within(0.1).of(-51.58)
       
@@ -561,7 +564,8 @@ describe SolarPosition do
     
     it "should calculate angle of incidence by getting latitude by address through geocoding" do
       
-      pending
+      pending "In the simple implementation of this API, address is not an input value. Evaluate the possibility of differentiate the set of input parameters."
+
       solar_position_1 = SolarPosition.new(:address => "Montreal International Airport", :year => 2010, :month => 9, :day => 21, :hour => 10, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       solar_position_1.angle_of_incidence.should be_within(0.1).of(58.73)
       
@@ -575,9 +579,11 @@ describe SolarPosition do
     
   end
 
-  pending "Store data" do
+  context "Store data" do
 
     it "should get solar position by id" do
+
+      pending "In the simple implementation of this API, data are not stored. Keep this testcase just in case when storing data becomes necessary."
       
       solar_position_1 = SolarPosition.create(:address => "Montreal International Airport", :year => 2010, :month => 9, :day => 21, :hour => 10, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       
@@ -599,6 +605,8 @@ describe SolarPosition do
     end
 
     it "should update attributes" do
+
+      pending "In the simple implementation of this API, data are not stored. Keep this testcase just in case when storing data becomes necessary."      
 
       solar_position_1 = SolarPosition.create(:address => "Montreal International Airport", :year => 2010, :month => 9, :day => 21, :hour => 10, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
       
@@ -628,7 +636,7 @@ describe SolarPosition do
     it "should generate JSON data" do
 
       solar_position_1 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_1.to_json.should == "{\"declination\":-0.19,\"hour_angle\":\"-12.0\",\"solar_elevation\":\"43.1\",\"solar_azimuth\":\"-16.54\",\"sunrise\":\"6:49\",\"sunset\":\"18:47\",\"angle_of_incidence\":\"46.9\"}"
+      solar_position_1.to_json.should == "{\"declination\":\"-0.19\",\"hour_angle\":\"-12.0\",\"solar_elevation\":\"43.1\",\"solar_azimuth\":\"-16.54\",\"sunrise\":\"6:49\",\"sunset\":\"18:47\",\"angle_of_incidence\":\"46.9\"}"
 
     end
 
