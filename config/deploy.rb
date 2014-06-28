@@ -1,88 +1,59 @@
-require "bundler/capistrano"
-require 'puma/capistrano'
+# config valid only for Capistrano 3.1
+lock '3.2.1'
 
-task :staging do
-  set :rails_env, "production"
-  set :location, "staging.solargeometryapi.tadatoshi.ca"
-  set_role
-  set :ruby_version, "ruby 2.0.0"
-  set :ruby_directory, "ruby-2.0.0-p0"
-  set :deploy_to, "~/apps/#{application}"
-  set_default_environment
-end
+set :application, 'solar_geometry_api'
+set :repo_url, 'git@github.com:tadatoshi/solar_geometry_api.git'
 
-task :production do
-  set :rails_env, "production"
-  set :location, "solargeometryapi.tadatoshi.ca"
-  set_role
-  set :ruby_version, "ruby 2.0.0"  
-  set :ruby_directory, "ruby-2.0.0-p0"
-  set :deploy_to, "~/apps/#{application}"
-  set_default_environment
-end
+# Default branch is :master
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-task :set_default_environment do
-  set :default_environment, { 
-    'PATH' => "~/.rvm/rubies/#{ruby_directory}/bin:~/.rvm/gems/#{ruby_directory}/bin:~/.rvm/bin:$PATH",
-    'RUBY_VERSION' => ruby_version,
-    'GEM_HOME' => "~/.rvm/gems/#{ruby_directory}",
-    'GEM_PATH' => "~/.rvm/gems/#{ruby_directory}" 
-  }
-end
+# Default deploy_to directory is /var/www/my_app
+# set :deploy_to, '/var/www/my_app'
+set :deploy_to, "~/apps/#{fetch(:application)}"
 
-set :application, "solar_geometry_api"
-set :deploy_via, :remote_cache
-set :use_sudo, false
+# Default value for :scm is :git
+# set :scm, :git
 
-set :repository,  "git@github.com:tadatoshi/solar_geometry_api.git"
-set :branch, "master"
+# Default value for :format is :pretty
+# set :format, :pretty
 
-set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+# Default value for :log_level is :debug
+# set :log_level, :debug
 
-task :set_role do
-  role :web, location                          # Your HTTP server, Apache/etc
-  role :app, location                          # This may be the same as your `Web` server
-  role :db,  location, :primary => true # This is where Rails migrations will run
-end
+# Default value for :pty is false
+# set :pty, true
 
-set :user, "ubuntu"
+# Default value for :linked_files is []
+# set :linked_files, %w{config/database.yml}
 
-# ssh_options[:forward_agent] = true
+# Default value for linked_dirs is []
+# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-# if you want to clean up old releases on each deploy uncomment this:
-after "deploy:restart", "deploy:cleanup"
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+# Default value for keep_releases is 5
+# set :keep_releases, 5
 
 namespace :deploy do
-  task :setup_config, roles: :app do
-    sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
-    run "mkdir -p #{shared_path}/config"
-    puts "Now edit the config files in #{shared_path}."
-  end
-  after "deploy:setup", "deploy:setup_config"
 
-  # task :symlink_config, roles: :app do
-  #   run "ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
-  # end
-  # after "deploy:finalize_update", "deploy:symlink_config"
-
-  desc "Make sure local git is in sync with remote."
-  task :check_revision, roles: :web do
-    unless `git rev-parse HEAD` == `git rev-parse origin/master`
-      puts "WARNING: HEAD is not the same as origin/master"
-      puts "Run `git push` to sync changes."
-      exit
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      # execute :touch, release_path.join('tmp/restart.txt')
     end
   end
-  before "deploy", "deploy:check_revision"
+
+  after :publishing, :restart
+
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
+    end
+  end
+
 end
-
-
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
