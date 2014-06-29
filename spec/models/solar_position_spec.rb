@@ -20,23 +20,23 @@ describe SolarPosition do
       pending "In the simple implementation of this API, address is not an input value. Evaluate the possibility of differentiate the set of input parameters."
       
       solar_position_1 = SolarPosition.new(:address => nil, :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_1.valid?.should be_false
+      solar_position_1.valid?.should be_falsey
       solar_position_1.errors[:address].should_not be_empty
     
       solar_position_2 = SolarPosition.new(:address => "", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_2.valid?.should be_false
+      solar_position_2.valid?.should be_falsey
       solar_position_2.errors[:address].should_not be_empty
     
       solar_position_3 = SolarPosition.new(:address => "Montreal QC Canada", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_3.valid?.should be_true
+      solar_position_3.valid?.should be_truthy
       solar_position_3.errors[:address].should be_empty
       
       solar_position_4 = SolarPosition.new(:latitude => "", :address => "Montreal QC Canada", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_4.valid?.should be_true
+      solar_position_4.valid?.should be_truthy
       solar_position_4.errors[:address].should be_empty      
       
       solar_position_5 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_5.valid?.should be_true
+      solar_position_5.valid?.should be_truthy
       solar_position_5.errors[:address].should be_empty             
       
     end
@@ -44,56 +44,56 @@ describe SolarPosition do
     it "should have latitude, meridian, longitude, and timezone_identifier pending(only when address is blank)" do
 
       solar_position_1 = SolarPosition.new(:latitude => nil, :meridian => nil, :longitude => nil, :timezone_identifier => nil, :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_1.valid?.should be_false
+      solar_position_1.valid?.should be_falsey
       solar_position_1.errors[:latitude].should_not be_empty
       solar_position_1.errors[:meridian].should_not be_empty
       solar_position_1.errors[:longitude].should_not be_empty
       solar_position_1.errors[:timezone_identifier].should_not be_empty
     
       solar_position_2 = SolarPosition.new(:latitude => "", :meridian => "", :longitude => nil, :timezone_identifier => nil, :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_2.valid?.should be_false
+      solar_position_2.valid?.should be_falsey
       solar_position_2.errors[:latitude].should_not be_empty
       solar_position_2.errors[:meridian].should_not be_empty
       solar_position_2.errors[:longitude].should_not be_empty
       solar_position_2.errors[:timezone_identifier].should_not be_empty
     
       solar_position_3 = SolarPosition.new(:latitude => "45.5", :meridian => nil, :longitude => nil, :timezone_identifier => nil, :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_3.valid?.should be_false
+      solar_position_3.valid?.should be_falsey
       solar_position_3.errors[:latitude].should be_empty
       solar_position_3.errors[:meridian].should_not be_empty
       solar_position_3.errors[:longitude].should_not be_empty
       solar_position_3.errors[:timezone_identifier].should_not be_empty
       
       solar_position_4 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => nil, :timezone_identifier => nil, :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_4.valid?.should be_false
+      solar_position_4.valid?.should be_falsey
       solar_position_4.errors[:latitude].should be_empty
       solar_position_4.errors[:meridian].should be_empty
       solar_position_4.errors[:longitude].should_not be_empty 
       solar_position_4.errors[:timezone_identifier].should_not be_empty     
       
       solar_position_5 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => nil, :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_5.valid?.should be_false
+      solar_position_5.valid?.should be_falsey
       solar_position_5.errors[:latitude].should be_empty
       solar_position_5.errors[:meridian].should be_empty 
       solar_position_5.errors[:longitude].should be_empty
       solar_position_5.errors[:timezone_identifier].should_not be_empty   
       
       solar_position_6 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_6.valid?.should be_true
+      solar_position_6.valid?.should be_truthy
       solar_position_6.errors[:latitude].should be_empty
       solar_position_6.errors[:meridian].should be_empty 
       solar_position_6.errors[:longitude].should be_empty
       solar_position_6.errors[:timezone_identifier].should be_empty  
       
       # solar_position_7 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :address => "", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      # solar_position_7.valid?.should be_true
+      # solar_position_7.valid?.should be_truthy
       # solar_position_7.errors[:latitude].should be_empty 
       # solar_position_7.errors[:meridian].should be_empty  
       # solar_position_7.errors[:longitude].should be_empty   
       # solar_position_7.errors[:timezone_identifier].should be_empty  
       
       # solar_position_7 = SolarPosition.new(:address => "Montreal QC Canada", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      # solar_position_7.valid?.should be_true
+      # solar_position_7.valid?.should be_truthy
       # solar_position_7.errors[:latitude].should be_empty 
       # solar_position_7.errors[:meridian].should be_empty
       # solar_position_7.errors[:longitude].should be_empty 
@@ -104,15 +104,15 @@ describe SolarPosition do
     it "should have surface inclination" do
       
       solar_position_1 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => nil, :surface_azimuth => "0")
-      solar_position_1.valid?.should be_false
+      solar_position_1.valid?.should be_falsey
       solar_position_1.errors[:surface_inclination].should_not be_empty
     
       solar_position_2 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "", :surface_azimuth => "0")
-      solar_position_2.valid?.should be_false
+      solar_position_2.valid?.should be_falsey
       solar_position_2.errors[:surface_inclination].should_not be_empty
     
       solar_position_3 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_3.valid?.should be_true
+      solar_position_3.valid?.should be_truthy
       solar_position_3.errors[:surface_inclination].should be_empty
       
     end    
@@ -120,15 +120,15 @@ describe SolarPosition do
     it "should have surface azimuth" do
 
       solar_position_1 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => nil)
-      solar_position_1.valid?.should be_false
+      solar_position_1.valid?.should be_falsey
       solar_position_1.errors[:surface_azimuth].should_not be_empty
             
       solar_position_2 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "")
-      solar_position_2.valid?.should be_false
+      solar_position_2.valid?.should be_falsey
       solar_position_2.errors[:surface_azimuth].should_not be_empty
             
       solar_position_3 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_3.valid?.should be_true
+      solar_position_3.valid?.should be_truthy
       solar_position_3.errors[:surface_azimuth].should be_empty
       
     end 
@@ -136,15 +136,15 @@ describe SolarPosition do
     it "latitude should have numeric value" do
       
       solar_position_1 = SolarPosition.new(:latitude => "aaa", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_1.valid?.should be_false
+      solar_position_1.valid?.should be_falsey
       solar_position_1.errors[:latitude].should_not be_empty
     
       solar_position_2 = SolarPosition.new(:latitude => "10d", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_2.valid?.should be_false
+      solar_position_2.valid?.should be_falsey
       solar_position_2.errors[:latitude].should_not be_empty
     
       solar_position_3 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_3.valid?.should be_true
+      solar_position_3.valid?.should be_truthy
       solar_position_3.errors[:latitude].should be_empty    
       
     end
@@ -152,15 +152,15 @@ describe SolarPosition do
     it "surface inclination should have numeric value" do
       
       solar_position_1 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "dsv", :surface_azimuth => "0")
-      solar_position_1.valid?.should be_false
+      solar_position_1.valid?.should be_falsey
       solar_position_1.errors[:surface_inclination].should_not be_empty
     
       solar_position_2 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "73j9", :surface_azimuth => "0")
-      solar_position_2.valid?.should be_false
+      solar_position_2.valid?.should be_falsey
       solar_position_2.errors[:surface_inclination].should_not be_empty
     
       solar_position_3 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_3.valid?.should be_true
+      solar_position_3.valid?.should be_truthy
       solar_position_3.errors[:surface_inclination].should be_empty
       
     end   
@@ -168,15 +168,15 @@ describe SolarPosition do
     it "surface azimuth should have numeric value" do
 
       solar_position_1 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "dMkeq")
-      solar_position_1.valid?.should be_false
+      solar_position_1.valid?.should be_falsey
       solar_position_1.errors[:surface_azimuth].should_not be_empty
             
       solar_position_2 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "?!")
-      solar_position_2.valid?.should be_false
+      solar_position_2.valid?.should be_falsey
       solar_position_2.errors[:surface_azimuth].should_not be_empty
             
       solar_position_3 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_3.valid?.should be_true
+      solar_position_3.valid?.should be_truthy
       solar_position_3.errors[:surface_azimuth].should be_empty
       
     end            
@@ -184,23 +184,23 @@ describe SolarPosition do
     it "latitude should be between 0 degrees and 90 degrees" do
       
       solar_position_1 = SolarPosition.new(:latitude => "91", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_1.valid?.should be_false
+      solar_position_1.valid?.should be_falsey
       solar_position_1.errors[:latitude].should_not be_empty
     
       solar_position_2 = SolarPosition.new(:latitude => "-1", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_2.valid?.should be_false
+      solar_position_2.valid?.should be_falsey
       solar_position_2.errors[:latitude].should_not be_empty
     
       solar_position_3 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_3.valid?.should be_true
+      solar_position_3.valid?.should be_truthy
       solar_position_3.errors[:latitude].should be_empty
       
       solar_position_4 = SolarPosition.new(:latitude => "90", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_4.valid?.should be_true
+      solar_position_4.valid?.should be_truthy
       solar_position_4.errors[:latitude].should be_empty
       
       solar_position_5 = SolarPosition.new(:latitude => "0", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_5.valid?.should be_true
+      solar_position_5.valid?.should be_truthy
       solar_position_5.errors[:latitude].should be_empty               
       
     end
@@ -208,23 +208,23 @@ describe SolarPosition do
     it "surface inclination should be between 0 degrees and 90 degrees" do
       
       solar_position_1 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "91", :surface_azimuth => "0")
-      solar_position_1.valid?.should be_false
+      solar_position_1.valid?.should be_falsey
       solar_position_1.errors[:surface_inclination].should_not be_empty
     
       solar_position_2 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "-1", :surface_azimuth => "0")
-      solar_position_2.valid?.should be_false
+      solar_position_2.valid?.should be_falsey
       solar_position_2.errors[:surface_inclination].should_not be_empty
     
       solar_position_3 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "0")
-      solar_position_3.valid?.should be_true
+      solar_position_3.valid?.should be_truthy
       solar_position_3.errors[:surface_inclination].should be_empty
       
       solar_position_3 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "90", :surface_azimuth => "0")
-      solar_position_3.valid?.should be_true
+      solar_position_3.valid?.should be_truthy
       solar_position_3.errors[:surface_inclination].should be_empty      
       
       solar_position_3 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "70", :surface_azimuth => "0")
-      solar_position_3.valid?.should be_true
+      solar_position_3.valid?.should be_truthy
       solar_position_3.errors[:surface_inclination].should be_empty      
       
     end   
@@ -232,23 +232,23 @@ describe SolarPosition do
     it "surface azimuth should be between -180 degrees and 180 degrees" do
 
       solar_position_1 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "-181")
-      solar_position_1.valid?.should be_false
+      solar_position_1.valid?.should be_falsey
       solar_position_1.errors[:surface_azimuth].should_not be_empty
             
       solar_position_2 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "-181")
-      solar_position_2.valid?.should be_false
+      solar_position_2.valid?.should be_falsey
       solar_position_2.errors[:surface_azimuth].should_not be_empty
             
       solar_position_3 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "180")
-      solar_position_3.valid?.should be_true
+      solar_position_3.valid?.should be_truthy
       solar_position_3.errors[:surface_azimuth].should be_empty
       
       solar_position_3 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "-180")
-      solar_position_3.valid?.should be_true
+      solar_position_3.valid?.should be_truthy
       solar_position_3.errors[:surface_azimuth].should be_empty
     
       solar_position_3 = SolarPosition.new(:latitude => "45.5", :meridian => "-75", :longitude => "-73.75", :timezone_identifier => "America/Montreal", :year => 2010, :month => 9, :day => 21, :hour => 12, :minute => 0, :surface_inclination => "0", :surface_azimuth => "45")
-      solar_position_3.valid?.should be_true
+      solar_position_3.valid?.should be_truthy
       solar_position_3.errors[:surface_azimuth].should be_empty
       
     end    
