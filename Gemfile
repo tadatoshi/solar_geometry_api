@@ -21,7 +21,9 @@ gem 'puma'
 # Deploy with Capistrano
 # gem 'capistrano', :group => :development
 gem 'capistrano', group: :development
-gem 'capistrano3-puma' , group: :development
+gem 'capistrano3-puma', group: :development
+gem 'capistrano-rvm', group: :development
+gem 'capistrano-bundler', group: :development
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
